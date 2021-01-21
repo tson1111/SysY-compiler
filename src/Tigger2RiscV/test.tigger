@@ -1,0 +1,99 @@
+	.comm v0, 192, 4
+	.text
+	.align 2
+	.global main
+	.type main, @function
+main:
+	add sp, sp, -80
+	sw ra, 76(sp)
+	lw t0, 0(sp)
+	li t0, 0
+	lw t1, 4(sp)
+	li t1, 0
+	sw t0, 0(sp)
+	sw t1, 4(sp)
+.l0:
+	lw t0, 12(sp)
+	lw t1, 0(sp)
+	li t2, 5
+	sgt t0, t1, t2
+	lw t3, 8(sp)
+	xor t3, t0, x0
+	seqz t3, t3
+	sw t3, 8(sp)
+	beq t3, x0, .l6
+	lw t0, 16(sp)
+	lw t1, 0(sp)
+	addi t0, t1, 0
+	sw t0, 16(sp)
+.l1:
+	lw t0, 24(sp)
+	lw t1, 16(sp)
+	slti t0, t1, 0
+	lw t2, 20(sp)
+	xor t2, t0, x0
+	seqz t2, t2
+	sw t2, 20(sp)
+	beq t2, x0, .l5
+	lw t0, 28(sp)
+	lw t1, 16(sp)
+	slti t0, t1, 4
+	sw t0, 28(sp)
+	beq t0, x0, .l2
+	lw t0, 36(sp)
+	lw t1, 0(sp)
+	lw t2, 16(sp)
+	sub t0, t1, t2
+	lw t3, 40(sp)
+	slti t3, t0, 3
+	sw t3, 40(sp)
+	beq t3, x0, .l2
+	lw t0, 32(sp)
+	li t0, 1
+	sw t0, 32(sp)
+	j .l3
+.l2:
+	lw t0, 32(sp)
+	li t0, 0
+	sw t0, 32(sp)
+.l3:
+	lw t0, 32(sp)
+	beq t0, x0, .l4
+	lw t0, 44(sp)
+	lw t1, 0(sp)
+	lw t2, 16(sp)
+	sub t0, t1, t2
+	lw t3, 48(sp)
+	li t4, 4
+	mul t3, t0, t4
+	add t3, t3, t2
+	lw t5, 52(sp)
+	li t6, 4
+	mul t5, t3, t6
+	lui s1, %hi(v0)
+	addi s1, s1, %lo(v0)
+	lw s2, 4(sp)
+	add s3, s1, t5
+	sw s2, 0(s3)
+	li s2, 1
+	sw s2, 4(sp)
+.l4:
+	lw t0, 56(sp)
+	lw t1, 16(sp)
+	addi t0, t1, -1
+	addi t1, t0, 0
+	sw t1, 16(sp)
+	j .l1
+.l5:
+	lw t0, 60(sp)
+	lw t1, 0(sp)
+	addi t0, t1, 1
+	addi t1, t0, 0
+	sw t1, 0(sp)
+	j .l0
+.l6:
+	li a0, 0
+	lw ra, 76(sp)
+	addi sp, sp, 80
+	jr ra
+	.size main, .-main
